@@ -31,6 +31,7 @@
 
 	(b), symbolic link to custom kernel and changes in u-boot.
 		follow the steps after "Test your Kernel" in following link. You will need a USB-Serial cable/adapter to get u-boot menu.
+		http://www.chip-community.org/index.php/Compile_the_Linux_kernel_for_CHIP#Test_your_new_kernel
 		You will need to connect CHIP to WiFi to install u-boot-tools.For that,
 		$ sudo nmtui
 			Activate suitable WiFi
