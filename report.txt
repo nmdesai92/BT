@@ -38,5 +38,5 @@
 		
 		To create symboloc links,
 		$ ln -s source/file symlink/file    	//If symlink/file doesn't exists
-		$ ln -s source/file symlink/file    	//If symlink/file exists and to replace that.(-f == force)
+		$ ln -sf source/file symlink/file    	//If symlink/file exists and to replace that.(-f == force)
 
