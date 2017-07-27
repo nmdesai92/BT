@@ -1,0 +1,41 @@
+1. Follow the steps mention in E-mail.
+
+2. Copy only /boot/config-4.4.30-pro configurationfile from CHIP  to .config in Kernel Source-tree.
+
+3. Don't forget to $ unlink /lib/lib/modules/4.4.30nmd22+/build
+			      and	   $ unlink /lib/modules/4.4.13rd235+/source	
+	These two are links to very big files in size(~700MB) so, scp will try to copy these also into CHIP, if they are linked.And as CHIP can not accomodate these files, CHIP will stuck during scp.
+
+4. scp:
+	copy a file from Localhost(Ubuntu-PC) to remote host(CHIP):
+		$ scp path/to/sourcefile/name root@CHIP-IP:/path/to/destination/name
+	copy a directory from Localhost(Ubuntu-PC) to remote host(CHIP):
+		$ scp -r path/to/sourcedir/name root@CHIP-IP:/path/to/destinationdir/name
+
+	copy a file from remote host (CHIP) to local host(Ubuntu-PC)  /!\Write following in localhost
+		scp root@CHIP-IP:path/to/sourcefile/name /path/to/destination/name
+
+5. If scp doesn't work, try this:
+	$ nmcli d
+		this gives status of n/w devices.Find DEVICE name of ethernet TYPE. It is enp3s0 for my PC.
+	
+	$ sudo ifconfig enp3s0 inet down
+		this will disable ethernet device, so scp will not route through ethernet.
+	
+	To check route status before and after ethernet down,
+	$ ip route
+
+6. Two ways to boot from custom kernel. (a) and (b)
+	(a), Replace the default kernel image by custom kernel.
+		$ scp $WORKSPACE/CHIP-linux/arch/arm/boot/zImage  root@CHIP-IP:/boot/zImage
+
+	(b), symbolic link to custom kernel and changes in u-boot.
+		follow the steps after "Test your Kernel" in following link. You will need a USB-Serial cable/adapter to get u-boot menu.
+		You will need to connect CHIP to WiFi to install u-boot-tools.For that,
+		$ sudo nmtui
+			Activate suitable WiFi
+		
+		To create symboloc links,
+		$ ln -s source/file symlink/file    	//If symlink/file doesn't exists
+		$ ln -s source/file symlink/file    	//If symlink/file exists and to replace that.(-f == force)
+
